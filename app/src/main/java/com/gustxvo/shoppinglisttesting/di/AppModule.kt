@@ -2,10 +2,13 @@ package com.gustxvo.shoppinglisttesting.di
 
 import android.content.Context
 import androidx.room.Room
+import com.gustxvo.shoppinglisttesting.data.local.ShoppingDao
 import com.gustxvo.shoppinglisttesting.data.local.ShoppingItemDatabase
 import com.gustxvo.shoppinglisttesting.data.remote.PixabayApi
 import com.gustxvo.shoppinglisttesting.other.BASE_URL
 import com.gustxvo.shoppinglisttesting.other.DATABASE_NAME
+import com.gustxvo.shoppinglisttesting.repository.DefaultShoppingRepository
+import com.gustxvo.shoppinglisttesting.repository.ShoppingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +31,13 @@ object AppModule {
         ShoppingItemDatabase::class.java,
         DATABASE_NAME
     ).build()
+
+    @Singleton
+    @Provides
+    fun provideDefaultShoppingRepository(
+        shoppingDao: ShoppingDao,
+        shoppingApi: PixabayApi
+    ) = DefaultShoppingRepository(shoppingDao, shoppingApi) as ShoppingRepository
 
     @Singleton
     @Provides

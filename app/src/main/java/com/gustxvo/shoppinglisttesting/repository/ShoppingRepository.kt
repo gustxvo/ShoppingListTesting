@@ -3,6 +3,7 @@ package com.gustxvo.shoppinglisttesting.repository
 import androidx.lifecycle.LiveData
 import com.gustxvo.shoppinglisttesting.data.local.ShoppingItem
 import com.gustxvo.shoppinglisttesting.data.remote.reponses.ImageResponse
+import com.gustxvo.shoppinglisttesting.other.Resource
 
 interface ShoppingRepository {
 
@@ -14,5 +15,5 @@ interface ShoppingRepository {
 
     fun observeTotalPrice(): LiveData<Float>
 
-    suspend fun searchForImage(imageQuery: String): com.gustxvo.shoppinglisttesting.other.Resource<ImageResponse>
+    suspend fun searchForImage(imageQuery: String): Resource<ImageResponse>
 }
