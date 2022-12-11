@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.gustxvo.shoppinglisttesting.getOrAwaitValue
+import com.gustxvo.shoppinglisttesting.launchFragmentInHiltContainer
+import com.gustxvo.shoppinglisttesting.ui.ShoppingFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -67,6 +69,14 @@ class ShoppingDaoTest {
 
         assertThat(allShoppingItems).doesNotContain(shoppingItem)
     }
+
+
+    @Test
+    fun testLaunchFragmentInHiltContainer() {
+        launchFragmentInHiltContainer<ShoppingFragment> {
+        }
+    }
+
 
     @Test
     fun observeTotalPriceSum() = runTest {
