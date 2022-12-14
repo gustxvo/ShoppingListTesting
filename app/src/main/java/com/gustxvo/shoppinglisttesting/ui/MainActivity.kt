@@ -3,7 +3,9 @@ package com.gustxvo.shoppinglisttesting.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.gustxvo.shoppinglisttesting.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

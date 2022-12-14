@@ -70,14 +70,6 @@ class ShoppingDaoTest {
         assertThat(allShoppingItems).doesNotContain(shoppingItem)
     }
 
-
-    @Test
-    fun testLaunchFragmentInHiltContainer() {
-        launchFragmentInHiltContainer<ShoppingFragment> {
-        }
-    }
-
-
     @Test
     fun observeTotalPriceSum() = runTest {
         val shoppingItem1 = ShoppingItem("name", 2, 10f, "url", 1)

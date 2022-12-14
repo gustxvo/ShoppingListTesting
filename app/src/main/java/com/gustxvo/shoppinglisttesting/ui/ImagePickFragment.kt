@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.gustxvo.shoppinglisttesting.databinding.FragmentImagePickBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ImagePickFragment : Fragment() {
 
     private var _binding: FragmentImagePickBinding? = null
