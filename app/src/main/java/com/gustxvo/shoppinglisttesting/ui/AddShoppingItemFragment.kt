@@ -8,7 +8,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.gustxvo.shoppinglisttesting.databinding.FragmentAddShoppingItemBinding
+import com.gustxvo.shoppinglisttesting.other.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +21,7 @@ class AddShoppingItemFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingViewModel by viewModels()
+    val viewModel: ShoppingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +34,15 @@ class AddShoppingItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscribeToObservers()
+
+        binding.btnAddShoppingItem.setOnClickListener {
+            viewModel.insertShoppingItem(
+                binding.etShoppingItemName.text.toString(),
+                binding.etShoppingItemAmount.text.toString(),
+                binding.etShoppingItemPrice.text.toString(),
+            )
+        }
 
         binding.ivShoppingImage.setOnClickListener {
             findNavController().navigate(
@@ -45,6 +57,34 @@ class AddShoppingItemFragment : Fragment() {
                 }
             }
             requireActivity().onBackPressedDispatcher.addCallback(callback)
+        }
+    }
+
+    private fun subscribeToObservers() {
+        viewModel.currImageUrl.observe(viewLifecycleOwner) {
+            Glide.with(requireContext()).load(it).into(binding.ivShoppingImage)
+        }
+
+        viewModel.insertShoppingItemStatus.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        Snackbar.make(
+                            requireView(),
+                            "Added Shopping Item",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                    Status.ERROR -> {
+                            Snackbar.make(
+                                requireView(),
+                                result.message ?: "An unknown error occurred",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    Status.LOADING -> { /* NO OP */ }
+                }
+            }
         }
     }
 
