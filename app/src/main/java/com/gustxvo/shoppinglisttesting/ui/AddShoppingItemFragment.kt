@@ -42,6 +42,7 @@ class AddShoppingItemFragment : Fragment() {
                 binding.etShoppingItemAmount.text.toString(),
                 binding.etShoppingItemPrice.text.toString(),
             )
+            findNavController().popBackStack()
         }
 
         binding.ivShoppingImage.setOnClickListener {

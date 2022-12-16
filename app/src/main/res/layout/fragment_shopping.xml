@@ -17,6 +17,8 @@
             android:id="@+id/rvShoppingItems"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tvShoppingItemPrice"
             app:layout_constraintLeft_toLeftOf="parent"
